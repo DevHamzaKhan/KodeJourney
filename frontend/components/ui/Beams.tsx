@@ -81,42 +81,42 @@ export const BackgroundBeams = React.memo(
 
 {paths.map((path, index) => (
   <motion.path
-  key={`path-` + index}
-  d={path}
-  stroke={`url(#linearGradient-${index})`}
-  strokeOpacity="0.4"
-  strokeWidth="1" // Increased stroke width
-></motion.path>
+    key={`path-` + index}
+    d={path}
+    stroke={`url(#linearGradient-${index})`}
+    strokeOpacity="0.4"
+    strokeWidth="1" // Increased stroke width
+  ></motion.path>
 ))}
 <defs>
   {paths.map((path, index) => (
     <motion.linearGradient
-  id={`linearGradient-${index}`}
-  key={`gradient-${index}`}
-  initial={{
-    x1: "0%",
-    x2: "0%",
-    y1: "0%",
-    y2: "0%",
-  }}
-  animate={{
-    x1: ["0%", "100%"],
-    x2: ["0%", "95%"],
-    y1: ["0%", "100%"],
-    y2: ["0%", `${93 + Math.random() * 8}%`],
-  }}
-  transition={{
-    duration: Math.random() + 5, // Adjusted for faster animation
-    ease: "easeOut",
-    repeat: Infinity,
-    delay: Math.random() * 10, // Random delay
-  }}
->
-  <stop stopColor="#0000" stopOpacity="0"></stop>  {/* Transparent start */}
-  <stop stopColor="#00FF00"></stop>  {/* Light green */}
-  <stop offset="32.5%" stopColor="#32CD32"></stop>  {/* Lime green */}
-  <stop offset="100%" stopColor="#006400" stopOpacity="0"></stop>  {/* Dark green */}
-</motion.linearGradient>
+      id={`linearGradient-${index}`}
+      key={`gradient-${index}`}
+      initial={{
+        x1: "0%",
+        x2: "0%",
+        y1: "0%",
+        y2: "0%",
+      }}
+      animate={{
+        x1: ["0%", "100%"],
+        x2: ["0%", "95%"],
+        y1: ["0%", "100%"],
+        y2: ["0%", `${93 + Math.random() * 8}%`],
+      }}
+      transition={{
+        duration: Math.random() + 5, // Adjusted for faster animation
+        ease: "easeOut",
+        repeat: Infinity,
+        delay: Math.random() * 10, // Random delay
+      }}
+    >
+      <stop stopColor="#89CFF0" stopOpacity="0"></stop>  {/* Transparent start */}
+      <stop stopColor="#89CFF0"></stop>  {/* White */}
+      <stop offset="32.5%" stopColor="#89CFF0"></stop>  {/* White */}
+      <stop offset="100%" stopColor="#89CFF0" stopOpacity="0"></stop>  {/* Transparent end */}
+    </motion.linearGradient>
   ))}
 
   <radialGradient
@@ -129,7 +129,7 @@ export const BackgroundBeams = React.memo(
   >
     <stop offset="0.0666667" stopColor="var(--neutral-300)"></stop>
     <stop offset="0.243243" stopColor="var(--neutral-300)"></stop>
-    <stop offset="0.43594" stopColor="white" stopOpacity="0"></stop>
+    <stop offset="0.43594" stopColor="#89CFF0" stopOpacity="0"></stop> {/* White to transparent */}
   </radialGradient>
 </defs>
         </svg>

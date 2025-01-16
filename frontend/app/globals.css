@@ -7,6 +7,10 @@
     --background: 240 10% 97%; /* Light background */
     --foreground: 240 10% 3.9%;
 
+    --primary-font: 'Inter', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --code-font: 'Source Code Pro', monospace;
+
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
 
@@ -58,39 +62,6 @@
       -o-user-drag: none;
     }
   }
-
-  /* Dark mode settings (commented out) */
-  /*
-  .dark {
-    --background: 0 0% 0%; /* Pure black for dark theme
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-  }
-  */
 }
 
 @layer base {
@@ -98,7 +69,13 @@
     @apply border-border !scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-[var(--secondary-font)];
+  }
+  h1, h2, h3, .heading {
+    @apply font-[var(--primary-font)] font-bold;
+  }
+  code, pre {
+    @apply font-[var(--code-font)];
   }
   button {
     @apply active:outline-none;
@@ -106,11 +83,15 @@
 }
 
 @layer utilities {
-  .heading {
-    @apply font-bold text-4xl md:text-5xl text-center capitalize;
+  .font-primary {
+    font-family: var(--primary-font);
   }
 
-  .black-gradient {
-    background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  .font-secondary {
+    font-family: var(--secondary-font);
+  }
+
+  .font-code {
+    font-family: var(--code-font);
   }
 }

@@ -6,8 +6,8 @@ import { ThemeProvider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Scholarly Tutors",
-  description: "Best platform for online tutoring",
+  title: "Kode Journey",
+  description: "Best platform to go on a journey of coding",
 };
 
 export default function RootLayout({

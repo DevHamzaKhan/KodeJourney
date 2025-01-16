@@ -38,35 +38,33 @@ export function Waitlist() {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-neutral-50 relative antialiased"> {/* Light background */}
-      <BackgroundBeams className="absolute inset-0 z-0" />
+    <div className="h-screen w-full flex items-center justify-center bg-[#011627] relative antialiased"> {/* Exact Night Owl background color */}
+      <BackgroundBeams /> {/* Light, whiteish beams */}
       <div className="max-w-2xl mx-auto p-4 relative z-10 text-center">
-        <h1 className="text-3xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-green-400 to-green-600 font-sans font-bold">
-          Join the Waitlist for Scholarly Tutors
+        <h1 className="text-3xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-[#89CFF0] to-[#89CFF0] font-sans font-bold">
+          Join the Waitlist
         </h1>
-        <p className="text-neutral-700 max-w-lg mx-auto my-4 text-base lg:text-lg"> {/* Darker text for light theme */}
-          Scholarly Tutors is the premier platform where you can find expert tutors for any subject and teach anything you’re passionate about. Whether you are looking for personalized learning or teaching opportunities, our secure platform ensures great matchmaking for both students and tutors. Sign up now and start your journey towards knowledge and growth.
+        <p className="text-[#89CFF0] max-w-lg mx-auto my-4 text-sm lg:text-base"> {/* Light text color from Night Owl theme and smaller size */}
+          KodeJourney offers a platform to learn coding through structured lessons and real-world projects. Develop coding skills, track progress, and build a portfolio—all for free.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-4 w-full">
           <input
             type="email"
-            placeholder="Enter your email (e.g., hi@scholarlytutors.com)"
+            placeholder="Enter your email (e.g., hi@kodejourney.com)"
             value={email}
             onChange={handleInputChange}
-            className="rounded-lg border border-neutral-300 bg-white focus:ring-2 focus:ring-green-400 w-full px-4 py-3 text-sm lg:text-base placeholder:text-neutral-500 transition duration-200 ease-in-out focus:outline-none" /> {/* Light background and border */}
-          <button
-            type="submit"
-            className="mt-4 w-full bg-gradient-to-b from-green-400 to-green-600 text-white py-3 rounded-lg font-semibold transition-all duration-200 hover:bg-gradient-to-b hover:from-green-500 hover:to-green-700 disabled:bg-gray-400"
-            disabled={loading}
-          >
-            {loading ? "Submitting..." : "Join Waitlist"}
-          </button>
-        </form>
+            onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)} // Triggers submit on Enter press
+            className="rounded-lg border border-[#5e6d77] bg-[#011627] focus:ring-2 focus:ring-[#89CFF0] w-full px-4 py-3 text-[#89CFF0] text-sm lg:text-base placeholder:text-[#89CFF0] transition duration-200 ease-in-out focus:outline-none" /> {/* Dark background with light blue text and accent color for focus */}
 
-        {success && (
-          <p className="mt-4 text-center text-green-500">You’ve successfully joined the waitlist!</p>
-        )}
+          {/* Success message with opacity transition */}
+          <p
+            className={`mt-2 text-center text-[#89CFF0] transition-opacity duration-300 ${success ? 'opacity-100' : 'opacity-0'}`}
+            style={{ visibility: success ? 'visible' : 'hidden' }}
+          >
+            You’ve successfully joined the waitlist!
+          </p>
+        </form>
       </div>
     </div>
   );
