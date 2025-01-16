@@ -10,7 +10,8 @@ import { FormEvent, ChangeEvent } from "react";
 export function Waitlist() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(""); // Use a single state to hold the message text
+  const [messageOpacity, setMessageOpacity] = useState(0); // Control opacity for message box
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -18,9 +19,20 @@ export function Waitlist() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email) return;
+    
+    // Simple email validation using regular expression
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if (!email || !emailRegex.test(email)) {
+      setMessage("Please enter a valid email address.");
+      setMessageOpacity(1); // Show error message
+      return;
+    }
 
     setLoading(true);
+    setMessage(""); // Clear previous messages
+    setMessageOpacity(0); // Hide message box for valid submission
+
     try {
       const docRef = await addDoc(collection(db, "Waitlist"), {
         email: email,
@@ -28,12 +40,23 @@ export function Waitlist() {
       });
 
       console.log("Document written with ID: ", docRef.id);
-      setSuccess(true);
-      setEmail("");
+      setMessage("You’ve successfully joined the waitlist!");
+      setMessageOpacity(1); // Show success message
+      setEmail(""); // Clear email input
     } catch (e) {
       console.error("Error adding document: ", e);
+      setMessage("An error occurred. Please try again later.");
+      setMessageOpacity(1); // Show error message
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Modify this to prevent form submission in the keydown event
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent default behavior (form submission)
+      handleSubmit(e as any); // Call handleSubmit manually
     }
   };
 
@@ -54,16 +77,21 @@ export function Waitlist() {
             placeholder="Enter your email (e.g., hi@kodejourney.com)"
             value={email}
             onChange={handleInputChange}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)} // Triggers submit on Enter press
+            onKeyDown={handleKeyDown} // Modify to use the custom keydown handler
             className="rounded-lg border border-[#5e6d77] bg-[#011627] focus:ring-2 focus:ring-[#89CFF0] w-full px-4 py-3 text-[#89CFF0] text-sm lg:text-base placeholder:text-[#89CFF0] transition duration-200 ease-in-out focus:outline-none" /> {/* Dark background with light blue text and accent color for focus */}
 
-          {/* Success message with opacity transition */}
-          <p
-            className={`mt-2 text-center text-[#89CFF0] transition-opacity duration-300 ${success ? 'opacity-100' : 'opacity-0'}`}
-            style={{ visibility: success ? 'visible' : 'hidden' }}
+          {/* Single message box for error or success */}
+          <div
+            className="mt-2 text-center transition-opacity duration-300"
+            style={{
+              opacity: messageOpacity,
+              transition: "opacity 0.3s ease",
+            }}
           >
-            You’ve successfully joined the waitlist!
-          </p>
+            <span className={`text-sm lg:text-base ${message === "Please enter a valid email address." ? 'text-red-500' : 'text-[#89CFF0]'}`}>
+              {message}
+            </span>
+          </div>
         </form>
       </div>
     </div>
