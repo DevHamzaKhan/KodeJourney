@@ -1,5 +1,6 @@
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // Import Firebase Authentication
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -8,7 +9,7 @@ const firebaseConfig = {
   projectId: "kodejourney-68cf9",
   storageBucket: "kodejourney-68cf9.firebasestorage.app",
   messagingSenderId: "912607969353",
-  appId: "1:912607969353:web:eec067c03ceb956b407f98"
+  appId: "1:912607969353:web:eec067c03ceb956b407f98",
 };
 
 // Initialize Firebase
@@ -17,4 +18,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 const db = getFirestore(app);
 
-export { db };
+// Initialize Firebase Authentication
+const auth = getAuth(app);
+
+export { app, db, auth };
